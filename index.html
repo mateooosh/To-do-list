@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+ 	<head>
+    	<meta charset="utf-8" />
+    	<title>Vue.js</title>
+    	<link rel="stylesheet" href="css/style.css" type="text/css"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- FONT -->
+		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+
+		<script src="https://kit.fontawesome.com/01fbf34917.js" crossorigin="anonymous"></script>
+		
+ 	</head>
+
+	<body>
+		<main>
+			
+			<header>
+				<h1>Todo List</h1>
+				<p>Get things done, one item at a time.</p>
+			</header>
+			<div id="app" >
+				<div class="input">
+					<input type="text" v-model="input" v-on:keypress.enter="add" placeholder="What needs to be done?">
+					<button type="submit" @click="add">Add</button>
+				</div>
+				<div class="item" v-for="item in tab">
+					<i @click="toggleCheckbox(item)" v-if="item.completed===true" class="far fa-check-square" :class="{ iconColor: item.completed }"></i>
+					<i @click="toggleCheckbox(item)" v-if="item.completed===false" class="far fa-square"></i>
+					<div @click="toggleCheckbox(item)" :class="{ line: item.completed }">{{item.description}}</div> 
+					<i @click="editElement(item)"  class="far fa-edit"></i>
+					<i @click="deleteElement(item)" class="fas fa-trash"></i>
+				</div>
+
+			</div>
+		</main>
+	    
+
+		<!-- Vue.js -->
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+		<script src="js/script.js"></script>
+	</body>
+
+</html>

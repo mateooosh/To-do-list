@@ -24,13 +24,23 @@
 					<input type="text" v-model="input" v-on:keypress.enter="add" placeholder="What needs to be done?">
 					<button type="submit" @click="add">Add</button>
 				</div>
-				<div class="item" v-for="item in tab">
+				<!-- <div class="item" v-for="item in tab">
 					<i @click="toggleCheckbox(item)" v-if="item.completed===true" class="far fa-check-square" :class="{ iconColor: item.completed }"></i>
 					<i @click="toggleCheckbox(item)" v-if="item.completed===false" class="far fa-square"></i>
 					<div @click="toggleCheckbox(item)" :class="{ line: item.completed }">{{item.description}}</div> 
 					<i @click="editElement(item)"  class="far fa-edit"></i>
 					<i @click="deleteElement(item)" class="fas fa-trash"></i>
-				</div>
+				</div> -->
+
+				<transition-group name="fade">
+					<div class="item" v-for="(item, index) in tab" :key="index">
+						<i @click="toggleCheckbox(item)" v-if="item.completed===true" class="far fa-check-square" :class="{ iconColor: item.completed }"></i>
+						<i @click="toggleCheckbox(item)" v-if="item.completed===false" class="far fa-square"></i>
+						<div @click="toggleCheckbox(item)" :class="{ line: item.completed }">{{item.description}}</div> 
+						<i @click="editElement(item)"  class="far fa-edit" :class="{ iconColor: item.completed }"></i>
+						<i @click="deleteElement(item)" class="fas fa-trash" :class="{ iconColor: item.completed }"></i>
+					</div>
+				</transition-group>
 
 			</div>
 		</main>

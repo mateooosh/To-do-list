@@ -75,6 +75,13 @@ button:hover{
 	background-color: rgb(157, 0, 255);
 }
 
+.fade-enter-active, .fade-leave-active {
+  	transition: opacity 1s;
+}
+.fade-enter, .fade-leave-to {
+  	opacity: 0;
+}
+
 .item{
 	display: flex;
 	justify-content: space-between;

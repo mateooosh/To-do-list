@@ -13,7 +13,7 @@ new Vue({
 		add: function () {
 			if (this.input!==''){
 				//add elements to array
-				this.tab.unshift({description: this.input, completed: false});
+				this.tab.push({description: this.input, completed: false});
 				//clear input
 				this.input = '';
 			}

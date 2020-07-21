@@ -1,5 +1,5 @@
 # To-do-list
-Simple To-do list build with Vue.js
+Simple To-do list built with Vue.js
 
 
 ## Technologies

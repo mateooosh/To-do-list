@@ -1,5 +1,5 @@
 # To-do-list
-Simple To-do list built with Vue.js
+Simple To-do list built with Vue.js with functionality like logging and creating users. The list is stored in the database.
 
 
 ## Technologies
@@ -7,6 +7,7 @@ Simple To-do list built with Vue.js
 * Vue.js version: 2.5.16
 * HTML, CSS
 * JavaScript
+* Firebase
 
 
 

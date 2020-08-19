@@ -1,178 +1,247 @@
-*{
-	box-sizing: border-box;
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
-body{
-	margin:0;
-	font-family: 'Roboto', sans-serif;
-	background: rgb(2,0,36);
-	background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(191,88,255,1) 0%, rgba(203,98,255,1) 100%);
-	height: 100vh;
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background: #020024;
+  background: -webkit-gradient(linear, left top, right top, from(#020024), color-stop(0%, #bf58ff), to(#cb62ff));
+  background: linear-gradient(90deg, #020024 0%, #bf58ff 0%, #cb62ff 100%);
+  height: 100vh;
 }
 
-header{
-	margin:10px 40px;
-	color:black;
-	border-bottom: 1px solid rgb(172, 38, 255);
-	letter-spacing: 1px;
+header {
+  margin: 10px 40px;
+  color: black;
+  border-bottom: 1px solid #ac26ff;
+  letter-spacing: 1px;
 }
 
-h1{
-	font-size: 40px;
-	font-weight: 400;
+header p {
+  font-weight: 400;
 }
 
-header>p{
-	font-weight: 400;
+h1 {
+  font-size: 40px;
+  font-weight: 400;
 }
 
-main{
-	width:500px;
-	min-height:800px;
-	background-color: white;
-	position: absolute;
-	top:50%;
-	left:50%;
-	padding-bottom: 20px;
-	margin-left: -250px;
-	margin-top: -400px;
-	border-radius: 20px;
+h2 {
+  margin: 0;
+  margin-left: 10%;
+  font-weight: 600;
+  font-size: 26px;
 }
 
-.input{
-	width:auto;
-	margin: 40px 40px 0 40px ;
-	display: flex;
-	justify-content: space-between;
+label {
+  width: 100%;
+  display: block;
+  padding-left: 10%;
+  margin-top: 30px;
+  margin-bottom: 4px;
+  font-weight: 600;
 }
 
-button, input{
-	padding:10px 10px;
-	font-size:20px;
+#log-email,
+#log-password,
+#register-email,
+#register-password,
+#register-name {
+  width: 80%;
+  margin: 0 10%;
+  height: 36px;
+  text-align: left;
+  font-size: 15px;
 }
 
-input{
-	width: 350px;
-	text-align: center;
+.section {
+  width: auto;
+  margin: 30px 40px 0 40px;
 }
 
-input:focus{
-	outline-color: rgb(172, 38, 255);
+.section__button {
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 40px;
 }
 
-button{
-	background-color: white;
-	border-color:rgb(172, 38, 255);
-	border-radius: 7px;
-	outline: none;
-	border:none;
-	background-color: rgb(178, 64, 255);
-	color: white;
+.section__footer {
+  border-top: 1px solid #ac26ff;
+  margin-top: 40px;
+  text-align: center;
 }
 
-button:hover{
-	cursor: pointer;
-	background-color: rgb(157, 0, 255);
+.section__footer-span {
+  font-weight: 700;
+  cursor: pointer;
+  color: #ac26ff;
 }
 
-.fade-enter-active, .fade-leave-active {
-  	transition: opacity 1s;
-}
-.fade-enter, .fade-leave-to {
-  	opacity: 0;
-}
-
-.item{
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	width:auto;
-	min-height: 50px;
-	margin: 15px 40px 0 40px;
+main {
+  width: 500px;
+  min-height: 800px;
+  background-color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding-bottom: 20px;
+  margin-left: -250px;
+  margin-top: -400px;
+  border-radius: 20px;
 }
 
-.item > div{
-	width:300px;
-	color:black;
-	font-size: 18px;
-	margin-left: 10px;
-	text-decoration: none;
-	transition: all .5s;
-	padding: 10px 0;
+.input-todo {
+  width: auto;
+  margin: 40px 40px 0 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
-.item > div:hover{
-	cursor: pointer;
+button,
+input {
+  padding: 10px 10px;
+  font-size: 20px;
 }
 
-.item > button{
-	height:60%;
+input {
+  width: 350px;
+  text-align: center;
 }
 
-i{
-	color:black;
-	font-size: 20px;
-	margin-left: 10px;
-	transition: all .5s;
+input:focus {
+  outline-color: #ac26ff;
 }
 
-i:hover{
-	cursor: pointer;
-	color: rgb(172, 38, 255);
+button {
+  background-color: white;
+  border-color: #ac26ff;
+  border-radius: 7px;
+  outline: none;
+  border: none;
+  background-color: #b240ff;
+  color: white;
 }
 
-.line{
-	text-decoration: line-through !important;
-	color:rgb(170, 170, 170) !important;
+button:hover {
+  cursor: pointer;
+  background-color: #9d00ff;
 }
 
-.iconColor{
-	color:rgb(170, 170, 170);
+.fade-enter-active,
+.fade-leave-active {
+  -webkit-transition: opacity .5s;
+  transition: opacity .5s;
 }
 
-
-@media (max-width: 510px){
-	main{
-		position: static;
-		margin:auto;
-		width:100%;
-		height: 100vh;
-		margin: 0;
-		border-radius: 0;
-		padding: 0;
-	}
-
-	header{
-		margin: 0 20px 10px;
-
-	}
-
-	h1{
-		margin:0;
-		padding-top: 20px;
-	}
-
-	.item{
-		margin: 15px 20px 0;
-	}
-	
-	.input{
-		margin: 40px 20px 0;
-	}
-
-	input{
-		width: 70vw;
-	}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 
-@media (max-width: 380px){
-	input{
-		width: 65vw;
-	}
+.item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: auto;
+  min-height: 50px;
+  margin: 15px 40px 0 40px;
 }
 
-@media (max-width: 320px){
-	input{
-		width:60vw;
-	}
+.item div {
+  width: 300px;
+  color: black;
+  font-size: 18px;
+  margin-left: 10px;
+  text-decoration: none;
+  -webkit-transition: all .5s;
+  transition: all .5s;
+  padding: 10px 0;
 }
+
+.item div:hover {
+  cursor: pointer;
+}
+
+.item button {
+  height: 60%;
+}
+
+i {
+  color: black;
+  font-size: 20px;
+  margin-left: 10px;
+  -webkit-transition: all .5s;
+  transition: all .5s;
+}
+
+i:hover {
+  cursor: pointer;
+  color: #ac26ff;
+}
+
+.line {
+  text-decoration: line-through !important;
+  color: #aaaaaa !important;
+}
+
+.iconColor {
+  color: #aaaaaa;
+}
+
+.incorrect {
+  background-color: #ffe3e3;
+}
+
+@media (max-width: 510px) {
+  main {
+    position: static;
+    margin: auto;
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    border-radius: 0;
+    padding: 0;
+  }
+  header {
+    margin: 0 20px 10px;
+  }
+  h1 {
+    margin: 0;
+    padding-top: 20px;
+  }
+  .item {
+    margin: 15px 20px 0;
+  }
+  .input {
+    margin: 40px 20px 0;
+  }
+  input {
+    width: 70vw;
+  }
+}
+
+@media (max-width: 380px) {
+  input {
+    width: 65vw;
+  }
+}
+
+@media (max-width: 320px) {
+  input {
+    width: 60vw;
+  }
+}
+/*# sourceMappingURL=style.css.map */

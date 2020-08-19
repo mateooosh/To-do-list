@@ -19,35 +19,84 @@
 				<h1>Todo List</h1>
 				<p>Get things done, one item at a time.</p>
 			</header>
-			<div id="app" >
-				<div class="input">
+
+			<div id="app">
+
+				<!-- Logging -->
+				<section class="section" v-show="(!logged && !register)">
+					<h2>Log In</h2>
+					<form class="section__form">
+						<label for="email" >E-mail</label>
+						<input id="log-email" type="text" name="email">
+
+						<label for="password">Password</label>
+						<input id="log-password" type="password" name="password">
+					</form>
+
+					<button class="section__button" type="submit" @click="logInAndGetData()">Log In</button>
+					<div class="section__footer">
+						<p>You don't have an account? <span class="section__footer-span" @click="setRegisterTrue()" >Sign Up</span></p>
+					</div>
+				</section>
+
+
+
+				<!-- Creating an account -->
+				<section class="section" v-show="(register && !logged)">
+					<h2>Create an account</h2>
+					<form>
+						<label for="name">Name</label>
+						<input id="register-name" type="text" name="name">
+
+						<label for="email">E-mail</label>
+						<input id="register-email" type="text" name="email">
+
+						<label for="password">Password</label>
+						<input id="register-password" type="password" name="password">
+					</form>
+
+					<button class="section__button" type="submit" @click="createAccount()">Sign Up</button>
+					<div class="section__footer">
+						<p>
+							Already Registered? <span class="section__footer-span" @click="setRegisterFalse"> Log In</span></p>
+					</div>
+				</section>
+
+
+
+				<!-- input to do -->
+				<div class="input-todo" v-show="logged">
 					<input type="text" v-model="input" v-on:keypress.enter="add" placeholder="What needs to be done?">
 					<button type="submit" @click="add">Add</button>
 				</div>
-				<!-- <div class="item" v-for="item in tab">
-					<i @click="toggleCheckbox(item)" v-if="item.completed===true" class="far fa-check-square" :class="{ iconColor: item.completed }"></i>
-					<i @click="toggleCheckbox(item)" v-if="item.completed===false" class="far fa-square"></i>
-					<div @click="toggleCheckbox(item)" :class="{ line: item.completed }">{{item.description}}</div> 
-					<i @click="editElement(item)"  class="far fa-edit"></i>
-					<i @click="deleteElement(item)" class="fas fa-trash"></i>
-				</div> -->
 
+				<!-- list -->
 				<transition-group name="fade">
 					<div class="item" v-for="(item, index) in tab" :key="index">
-						<i @click="toggleCheckbox(item)" v-if="item.completed===true" class="far fa-check-square" :class="{ iconColor: item.completed }"></i>
-						<i @click="toggleCheckbox(item)" v-if="item.completed===false" class="far fa-square"></i>
-						<div @click="toggleCheckbox(item)" :class="{ line: item.completed }">{{item.description}}</div> 
-						<i @click="editElement(item)"  class="far fa-edit" :class="{ iconColor: item.completed }"></i>
-						<i @click="deleteElement(item)" class="fas fa-trash" :class="{ iconColor: item.completed }"></i>
+						<i @click="toggleCheckbox(item)" v-if="item.isCompleted===true" class="far fa-check-square" :class="{ iconColor: item.isCompleted }"></i>
+						<i @click="toggleCheckbox(item)" v-if="item.isCompleted===false" class="far fa-square"></i>
+						<div @click="toggleCheckbox(item)" :class="{ line: item.isCompleted }">{{item.content}}</div> 
+						<i @click="editElement(item)"  class="far fa-edit" :class="{ iconColor: item.isCompleted }"></i>
+						<i @click="deleteElement(item)" class="fas fa-trash" :class="{ iconColor: item.isCompleted }"></i>
 					</div>
 				</transition-group>
-
 			</div>
 		</main>
-	    
 
 		<!-- Vue.js -->
 		<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+		
+	    <!-- The core Firebase JS SDK is always required and must be listed first -->
+	    <script src="https://www.gstatic.com/firebasejs/7.18.0/firebase-app.js"></script>
+
+	    <script src="https://www.gstatic.com/firebasejs/7.18.0/firebase-auth.js"></script>
+	    <script src="https://www.gstatic.com/firebasejs/7.18.0/firebase-database.js"></script>
+
+
+	    <!-- TODO: Add SDKs for Firebase products that you want to use
+	     https://firebase.google.com/docs/web/setup#available-libraries -->
+	    <script src="https://www.gstatic.com/firebasejs/7.18.0/firebase-analytics.js"></script>
+
 		<script src="js/script.js"></script>
 	</body>
 

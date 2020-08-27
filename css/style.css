@@ -241,6 +241,7 @@ i:hover {
   }
   .section__button {
     margin-left: 0;
+    margin-right: 0;
     width: 100%;
   }
   .item {
@@ -249,18 +250,12 @@ i:hover {
   .input {
     margin: 40px 20px 0;
   }
-
-  .input-todo{
-    margin: 40px 20px;
-  }
-
   input {
     width: 70vw;
   }
 }
 
-@media (max-width: 370px) {
-
+@media (max-width: 380px) {
   input {
     width: 65vw;
   }

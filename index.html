@@ -33,7 +33,8 @@
 						<input id="log-password" type="password" name="password">
 					</form>
 
-					<button class="section__button" type="submit" @click="logInAndGetData()">Log In</button>
+					<!-- <button class="section__button" type="submit" @click="logInAndGetData()">Log In</button> -->
+					<button class="section__button" type="submit" @click="validateLoginData()">Log In</button>
 					<div class="section__footer">
 						<p>You don't have an account? <span class="section__footer-span" @click="setRegisterTrue()" >Sign Up</span></p>
 					</div>
@@ -55,10 +56,11 @@
 						<input id="register-password" type="password" name="password">
 					</form>
 
-					<button class="section__button" type="submit" @click="createAccount()">Sign Up</button>
+					<button class="section__button" type="submit" @click="validateRegisterData()">Sign Up</button>
 					<div class="section__footer">
 						<p>
-							Already Registered? <span class="section__footer-span" @click="setRegisterFalse"> Log In</span></p>
+							Already Registered? <span class="section__footer-span" @click="setRegisterFalse"> Log In</span>
+						</p>
 					</div>
 				</section>
 

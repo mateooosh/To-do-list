@@ -1,5 +1,7 @@
 //TO DO 
+// - wylogowanie
 // - zmiana hasła 
+// + walidacja
 // + rejestracja
 // + wyslanie do bazy zadan
 // + dodanie imienia do bazy
@@ -201,16 +203,51 @@ new Vue({
 				});
 		},
 
-		checkEmail: function () {
-			// ...
+		//function which validates login data
+		validateLoginData: function(){
+			if (this.validateEmail(document.getElementById('log-email').value) && this.validatePassword(document.getElementById('log-password').value)){
+				alert("Validate successfully!");
+				this.logInAndGetData();
+			}
+
+			else{
+				alert('something went wrong')
+			}
 		},
 
-		checkPassword: function () {
-			// ...
+		//function which validates register data
+		validateRegisterData: function () {
+			if (this.validateEmail(document.getElementById('register-email').value) && 
+				this.validatePassword(document.getElementById('register-password').value)&& 
+				this.validateName(document.getElementById('register-name').value)
+			) {
+				alert("Validate successfully!");
+				this.createAccount();
+			}
+
+			else {
+				alert('something went wrong')
+			}
+		},
+
+		//function which validates email
+		validateEmail: function(email) {
+			let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+			return re.test(email);
+		},
+
+		//function which validates password (min 6 characters)
+		validatePassword: function (password) {
+			if(password.length > 5)
+				return true;
+			return false;
 		}, 
 
-		checkName: function () {
-			// ...
+		//function which validates name (min 3 characters)
+		validateName: function (name) {
+			if (name.length > 2)
+				return true;
+			return false;
 		}
 	}
 }) 

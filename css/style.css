@@ -222,18 +222,45 @@ i:hover {
     margin: 0;
     padding-top: 20px;
   }
+  h2 {
+    margin: 0;
+  }
+  label {
+    padding-left: 0;
+  }
+  #log-email,
+  #log-password,
+  #register-email,
+  #register-password,
+  #register-name {
+    width: 100%;
+    margin: 0;
+  }
+  .section {
+    margin: 30px 20px;
+  }
+  .section__button {
+    margin-left: 0;
+    width: 100%;
+  }
   .item {
     margin: 15px 20px 0;
   }
   .input {
     margin: 40px 20px 0;
   }
+
+  .input-todo{
+    margin: 40px 20px;
+  }
+
   input {
     width: 70vw;
   }
 }
 
-@media (max-width: 380px) {
+@media (max-width: 370px) {
+
   input {
     width: 65vw;
   }

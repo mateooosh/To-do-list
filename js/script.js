@@ -206,7 +206,7 @@ new Vue({
 		//function which validates login data
 		validateLoginData: function(){
 			if (this.validateEmail(document.getElementById('log-email').value) && this.validatePassword(document.getElementById('log-password').value)){
-				alert("Validate successfully!");
+				// alert("Validate successfully!");
 				this.logInAndGetData();
 			}
 
@@ -221,12 +221,12 @@ new Vue({
 				this.validatePassword(document.getElementById('register-password').value)&& 
 				this.validateName(document.getElementById('register-name').value)
 			) {
-				alert("Validate successfully!");
+				// alert("Validate successfully!");
 				this.createAccount();
 			}
 
 			else {
-				alert('something went wrong')
+				alert('Something went wrong')
 			}
 		},
 
@@ -236,11 +236,30 @@ new Vue({
 			return re.test(email);
 		},
 
+		//function which validates email
+		validateEmailById: function (id) {
+			let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+			let value = document.getElementById(id).value;
+
+			if(re.test(value))
+				document.getElementById(id + '-label').setAttribute('class', '');
+			else
+				document.getElementById(id + '-label').setAttribute('class', 'wrong-email');
+		},
+
 		//function which validates password (min 6 characters)
 		validatePassword: function (password) {
 			if(password.length > 5)
 				return true;
 			return false;
+		}, 
+
+		validatePasswordById: function (id) {
+			if (document.getElementById(id).value.length > 5)
+				document.getElementById(id + '-label').setAttribute('class', '')
+			else
+				document.getElementById(id + '-label').setAttribute('class', 'wrong-password')
 		}, 
 
 		//function which validates name (min 3 characters)

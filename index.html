@@ -26,11 +26,13 @@
 				<section class="section" v-show="(!logged && !register)">
 					<h2>Log In</h2>
 					<form class="section__form">
-						<label for="email" >E-mail</label>
-						<input id="log-email" type="text" name="email">
+						<label for="email" id="log-email-label" class="">E-mail</label>
+						<input id="log-email"  type="text" name="email" @change="validateEmailById('log-email')">
+					</form>
 
-						<label for="password">Password</label>
-						<input id="log-password" type="password" name="password">
+					<form class="section__form">
+						<label for="password" id="log-password-label">Password</label>
+						<input id="log-password" type="password" name="password" @change="validatePasswordById('log-password')">
 					</form>
 
 					<!-- <button class="section__button" type="submit" @click="logInAndGetData()">Log In</button> -->
@@ -45,15 +47,19 @@
 				<!-- Creating an account -->
 				<section class="section" v-show="(register && !logged)">
 					<h2>Create an account</h2>
-					<form>
+					<form class="section__form">
 						<label for="name">Name</label>
 						<input id="register-name" type="text" name="name">
+					</form>
 
-						<label for="email">E-mail</label>
-						<input id="register-email" type="text" name="email">
+					<form class="section__form">
+						<label for="email" id="register-email-label">E-mail</label>
+						<input id="register-email" type="text" name="email" @change="validateEmailById('register-email')">
+					</form>
 
-						<label for="password">Password</label>
-						<input id="register-password" type="password" name="password">
+					<form class="section__form">
+						<label for="password" id="register-password-label">Password</label>
+						<input id="register-password" type="password" name="password"  @change="validatePasswordById('register-password')">
 					</form>
 
 					<button class="section__button" type="submit" @click="validateRegisterData()">Sign Up</button>

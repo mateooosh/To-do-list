@@ -21,6 +21,24 @@ header {
     }
 }
 
+.wrong-email::before{
+    content: 'Please fix your email to continue';
+    position: absolute;
+    top:62px;
+    font-size: 12px;
+    font-weight: 400;
+    color: rgb(223, 0, 0);
+}
+
+.wrong-password::before {
+    content: 'Password must be at least 6 characters long';
+    position: absolute;
+    top: 62px;
+    font-size: 12px;
+    font-weight: 400;
+    color: rgb(223, 0, 0);
+}
+
 h1 {
     font-size: 40px;
     font-weight: 400;
@@ -57,6 +75,29 @@ label {
 .section {
     width: auto;
     margin: 30px 40px 0 40px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    &__form{
+        position: relative;
+    }
 
     &__button{
         width: 80%;
@@ -242,6 +283,10 @@ i {
 
     .input {
         margin: 40px 20px 0;
+
+        &-todo{
+            margin: 40px 20px;
+        }
     }
 
     input {
@@ -260,3 +305,11 @@ i {
         width: 60vw;
     }
 }
+
+@media (max-height: 800px) {
+    main {
+        top: 0;
+        margin-top: 0px;
+    }
+}
+

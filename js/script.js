@@ -18,6 +18,33 @@ var config = {
 };
 firebase.initializeApp(config);
 
+
+Vue.component('message', {
+	template: `
+		<article class="message">
+			<div class="message__header">
+				<p class="message__header-p">{{ header }}</p> 
+				<button @click="$emit('set-false-isvisible')" class="message__header-button"></button>
+			</div>
+			<div class="message__body">
+				{{ body }}
+			</div>
+		</article>
+	`,
+
+	props: {
+		header: String,
+		body: String,
+	},
+	data() {
+		return {
+			// isVisible: true,
+		}
+	}
+});
+
+
+
 new Vue({
 	el: '#app',
 	data(){
@@ -27,10 +54,17 @@ new Vue({
 			logged: false,
 			register: false,
 			name: '',
+			isVisible: false,
+			messageHeader: '',
+			messageBody: '',
 		}
 	},
 
 	methods: {
+		setFalseIsVisible: function () {
+			this.isVisible = false;
+		},
+
 		// function which adds element to list
 		add: function () {
 			if (this.input==''){
@@ -147,12 +181,13 @@ new Vue({
 
 					//get length of array
 					starCountRef.on('value', function (snapshot) {
-						l = (snapshot.val().length);
+						l = snapshot.val().length;
 					})
 
 					//odczytaj dane z bazy
 					firebase.database().ref('list/' + user.uid).on('value',  (snapshot) =>{
 						let array = snapshot.val().array;
+						// this.name = snapshot.val().name;
 
 						if (l === 0) {
 							array = [];
@@ -163,15 +198,22 @@ new Vue({
 						
 					})
 					this.logged = true;
+					
 					console.log("Login successfully!");
 				})
 
-				.catch(function (error) {
+				.catch( error => {
 					// Handle Errors here.
-					let errorCode = error.code;
-					let errorMessage = error.message;
-					alert(errorMessage);
+					// let errorCode = error.code;
+					// let errorMessage = error.message;
+					document.getElementById('log-email').value = '';
+					document.getElementById('log-password').value = '';
+
+					this.messageHeader = "Error";
+					this.messageBody = error.message;
+					// alert(errorMessage);
 					this.logged = false;
+					this.isVisible = true;
 				});
 		},
 
@@ -196,10 +238,15 @@ new Vue({
 
 				})
 				.catch( error => {
+					document.getElementById('register-name').value = '';
+					document.getElementById('register-email').value = '';
+					document.getElementById('register-password').value = '';
+
 					// Handle Errors here.
-					let errorCode = error.code;
-					let errorMessage = error.message;
-					alert(errorMessage);
+					this.messageHeader = "Error";
+					this.messageBody = error.message;
+					// alert(error.message);
+					this.isVisible = true;
 				});
 		},
 

@@ -12,6 +12,89 @@ body {
   height: 100vh;
 }
 
+.message {
+  border-radius: 4px;
+  margin: 10px 40px;
+}
+
+.message__header {
+  border-radius: 4px 4px 0 0;
+  color: #fff;
+  background-color: #b240ff;
+  width: 100%;
+  padding: 0 1em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+}
+
+.message__header-p {
+  display: block;
+  font-weight: 700;
+  margin: 10px 0;
+}
+
+.message__header-button {
+  background-color: rgba(10, 10, 10, 0.2);
+  border: none;
+  border-radius: 290486px;
+  cursor: pointer;
+  pointer-events: auto;
+  display: inline-block;
+  -webkit-box-flex: 0;
+      -ms-flex-positive: 0;
+          flex-grow: 0;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  font-size: 0;
+  height: 20px;
+  width: 20px;
+  outline: 0;
+  position: relative;
+  vertical-align: top;
+}
+
+.message__header-button::after,
+.message__header-button::before {
+  background-color: #fff;
+  content: "";
+  display: block;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateX(-50%) translateY(-50%) rotate(45deg);
+          transform: translateX(-50%) translateY(-50%) rotate(45deg);
+  -webkit-transform-origin: center center;
+          transform-origin: center center;
+}
+
+.message__header-button::before {
+  height: 2px;
+  width: 50%;
+}
+
+.message__header-button::after {
+  height: 50%;
+  width: 2px;
+}
+
+.message__body {
+  border-radius: 0 0 4px 4px;
+  color: #4a4a4a;
+  background-color: #eeeeee;
+  width: 100%;
+  height: auto;
+  /* overflow: auto; */
+  padding: 10px 15px;
+}
+
 header {
   margin: 10px 40px;
   color: black;
@@ -21,24 +104,6 @@ header {
 
 header p {
   font-weight: 400;
-}
-
-.wrong-email::before {
-  content: 'Please fix your email to continue';
-  position: absolute;
-  top: 62px;
-  font-size: 12px;
-  font-weight: 400;
-  color: #df0000;
-}
-
-.wrong-password::before {
-  content: 'Password must be at least 6 characters long';
-  position: absolute;
-  top: 62px;
-  font-size: 12px;
-  font-weight: 400;
-  color: #df0000;
 }
 
 h1 {
@@ -156,6 +221,24 @@ button:hover {
   background-color: #9d00ff;
 }
 
+.wrong-email::before {
+  content: 'Please fix your email to continue';
+  position: absolute;
+  top: 62px;
+  font-size: 12px;
+  font-weight: 400;
+  color: #df0000;
+}
+
+.wrong-password::before {
+  content: 'Password must be at least 6 characters long';
+  position: absolute;
+  top: 62px;
+  font-size: 12px;
+  font-weight: 400;
+  color: #df0000;
+}
+
 .fade-enter-active,
 .fade-leave-active {
   -webkit-transition: opacity .5s;
@@ -257,6 +340,9 @@ i:hover {
   #register-name {
     width: 100%;
     margin: 0;
+  }
+  .message {
+    margin: 10px 20px;
   }
   .section {
     margin: 30px 20px;

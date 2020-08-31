@@ -13,14 +13,26 @@
  	</head>
 
 	<body>
+
+		
 		<main>
 			
-			<header>
-				<h1>Todo List</h1>
-				<p>Get things done, one item at a time.</p>
-			</header>
+			
 
 			<div id="app">
+				<header>
+					<h1>
+						Todo List
+					</h1>
+					<p>Get things done, one item at a time.</p>
+				</header>
+
+				<message 	
+					v-show="isVisible"
+					v-on:set-false-isvisible="setFalseIsVisible"
+					:header=messageHeader 
+					:body=messageBody>
+				</message>
 
 				<!-- Logging -->
 				<section class="section" v-show="(!logged && !register)">
@@ -70,7 +82,7 @@
 					</div>
 				</section>
 
-
+				
 
 				<!-- input to do -->
 				<div class="input-todo" v-show="logged">

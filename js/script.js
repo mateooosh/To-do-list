@@ -7,6 +7,7 @@
 // + dodanie imienia do bazy
 // - metodologia BEM
 // - wiadomosc, czy udalo sie zalogować, stworzyć uzytkownika itp
+// + weryfikacja email
 
 
 //configuration
@@ -18,7 +19,7 @@ var config = {
 };
 firebase.initializeApp(config);
 
-
+//message component
 Vue.component('message', {
 	template: `
 		<article class="message">
@@ -27,7 +28,8 @@ Vue.component('message', {
 				<button @click="$emit('set-false-isvisible')" class="message__header-button"></button>
 			</div>
 			<div class="message__body">
-				{{ body }}
+				<div class="message__body-div">{{ body }}</div>
+				<button @click="$emit('send-verification-email')" v-show="verification" class="message__body-button">Send verification email</button>
 			</div>
 		</article>
 	`,
@@ -35,6 +37,7 @@ Vue.component('message', {
 	props: {
 		header: String,
 		body: String,
+		verification: Boolean
 	},
 	data() {
 		return {
@@ -55,6 +58,7 @@ new Vue({
 			register: false,
 			name: '',
 			isVisible: false,
+			isVisibleVerificationButton: false,
 			messageHeader: '',
 			messageBody: '',
 		}
@@ -63,6 +67,7 @@ new Vue({
 	methods: {
 		setFalseIsVisible: function () {
 			this.isVisible = false;
+			this.isVisibleVerificationButton = true;
 		},
 
 		// function which adds element to list
@@ -179,27 +184,40 @@ new Vue({
 					let user = firebase.auth().currentUser;
 					let starCountRef = firebase.database().ref('list/' + user.uid);
 
+					console.log("Login successfully!");
+					this.logged = true;
+
 					//get length of array
 					starCountRef.on('value', function (snapshot) {
 						l = snapshot.val().length;
 					})
 
 					//odczytaj dane z bazy
-					firebase.database().ref('list/' + user.uid).on('value',  (snapshot) =>{
+					firebase.database().ref('list/' + user.uid).on('value', (snapshot) => {
 						let array = snapshot.val().array;
 						// this.name = snapshot.val().name;
 
 						if (l === 0) {
 							array = [];
 						}
-						else{
+						else {
 							this.tab = array;
 						}
-						
 					})
-					this.logged = true;
+					this.isVisibleVerificationButton = false;
+					this.isVisible = false;
 					
-					console.log("Login successfully!");
+
+					if(user.emailVerified){
+						//verified
+					}
+					else {
+						this.messageHeader = "Error";
+						this.messageBody = "Your email is not verified, check your spam folder or get the verification link once again.";
+						this.isVisibleVerificationButton = true;
+						this.isVisible = true;
+					}
+						
 				})
 
 				.catch( error => {
@@ -213,6 +231,7 @@ new Vue({
 					this.messageBody = error.message;
 					// alert(errorMessage);
 					this.logged = false;
+					this.isVisibleVerificationButton = false;
 					this.isVisible = true;
 				});
 		},
@@ -233,7 +252,16 @@ new Vue({
 						length: 0,
 					});
 
-					alert("Utworzono nowego użytkownika! Teraz możesz się zalogować");
+
+					//verification by email
+					this.sendEmailVerification();
+
+					this.messageHeader = "Message";
+					this.messageBody = "A user account was created. Now you can log	 in. Don't forget to verify your email address.";
+					this.isVisibleVerificationButton = false;
+					this.isVisible = true;
+
+					// alert("Utworzono nowego użytkownika! Teraz możesz się zalogować");
 					this.register = false;
 
 				})
@@ -246,8 +274,19 @@ new Vue({
 					this.messageHeader = "Error";
 					this.messageBody = error.message;
 					// alert(error.message);
+					this.isVisibleVerificationButton = false;
 					this.isVisible = true;
 				});
+		},
+
+		//function which sends verification email
+		sendEmailVerification: function(){
+			let user = firebase.auth().currentUser;
+			user.sendEmailVerification().then(function () {
+				alert("Verification email was sent, check your email inbox.")
+			}).catch(function (error) {
+				// alert("Something went wrong with sending an email");
+			});
 		},
 
 		//function which validates login data
@@ -304,9 +343,9 @@ new Vue({
 
 		validatePasswordById: function (id) {
 			if (document.getElementById(id).value.length > 5)
-				document.getElementById(id + '-label').setAttribute('class', '')
+				document.getElementById(id + '-label').setAttribute('class', '');
 			else
-				document.getElementById(id + '-label').setAttribute('class', 'wrong-password')
+				document.getElementById(id + '-label').setAttribute('class', 'wrong-password');
 		}, 
 
 		//function which validates name (min 3 characters)
@@ -314,6 +353,12 @@ new Vue({
 			if (name.length > 2)
 				return true;
 			return false;
+		},
+		validateNameById: function (id) {
+			if (document.getElementById(id).value.length > 2)
+				document.getElementById(id + '-label').setAttribute('class', '');
+			else
+				document.getElementById(id + '-label').setAttribute('class', 'wrong-name');
 		}
 	}
 }) 

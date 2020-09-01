@@ -61,8 +61,7 @@ body {
   vertical-align: top;
 }
 
-.message__header-button::after,
-.message__header-button::before {
+.message__header-button::after, .message__header-button::before {
   background-color: #fff;
   content: "";
   display: block;
@@ -91,8 +90,34 @@ body {
   background-color: #eeeeee;
   width: 100%;
   height: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   /* overflow: auto; */
   padding: 10px 15px;
+}
+
+.message__body-div {
+  line-height: 1.3;
+}
+
+.message__body-button {
+  font-size: 14px;
+  border-color: #ac26ff;
+  border-radius: 7px;
+  outline: none;
+  border: none;
+  background-color: #b240ff;
+  color: white;
+  margin: 10px auto 0px;
 }
 
 header {
@@ -232,6 +257,15 @@ button:hover {
 
 .wrong-password::before {
   content: 'Password must be at least 6 characters long';
+  position: absolute;
+  top: 62px;
+  font-size: 12px;
+  font-weight: 400;
+  color: #df0000;
+}
+
+.wrong-name::before {
+  content: 'Name must be at least 3 characters long';
   position: absolute;
   top: 62px;
   font-size: 12px;

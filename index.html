@@ -30,8 +30,10 @@
 				<message 	
 					v-show="isVisible"
 					v-on:set-false-isvisible="setFalseIsVisible"
+					v-on:send-verification-email="sendEmailVerification"
 					:header=messageHeader 
-					:body=messageBody>
+					:body=messageBody
+					:verification=isVisibleVerificationButton>
 				</message>
 
 				<!-- Logging -->
@@ -60,8 +62,8 @@
 				<section class="section" v-show="(register && !logged)">
 					<h2>Create an account</h2>
 					<form class="section__form">
-						<label for="name">Name</label>
-						<input id="register-name" type="text" name="name">
+						<label for="name" id="register-name-label">Name</label>
+						<input id="register-name" type="text" name="name" @change="validateNameById('register-name')">
 					</form>
 
 					<form class="section__form">

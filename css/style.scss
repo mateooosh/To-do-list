@@ -13,74 +13,93 @@ body {
 .message {
     border-radius: 4px;
     margin: 10px 40px;
-}
 
-.message__header {
-    border-radius: 4px 4px 0 0;
-    color: #fff;
-    background-color: #b240ff;
-    width: 100%;
-    padding: 0 1em;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
-}
+    &__header {
+        border-radius: 4px 4px 0 0;
+        color: #fff;
+        background-color: #b240ff;
+        width: 100%;
+        padding: 0 1em;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
 
-.message__header-p {
-    display: block;
-    font-weight: 700;
-    margin: 10px 0;
-}
+        &-p{
+            display: block;
+            font-weight: 700;
+            margin: 10px 0;
+        }
 
-.message__header-button {
-    background-color: rgba(10, 10, 10, .2);
-    border: none;
-    border-radius: 290486px;
-    cursor: pointer;
+        &-button {
+            background-color: rgba(10, 10, 10, .2);
+            border: none;
+            border-radius: 290486px;
+            cursor: pointer;
+            pointer-events: auto;
+            display: inline-block;
+            flex-grow: 0;
+            flex-shrink: 0;
+            font-size: 0;
+            height: 20px;
+            width: 20px;
+            outline: 0;
+            position: relative;
+            vertical-align: top;
 
-    pointer-events: auto;
-    display: inline-block;
-    flex-grow: 0;
-    flex-shrink: 0;
-    font-size: 0;
-    height: 20px;
-    width: 20px;
-    outline: 0;
-    position: relative;
-    vertical-align: top;
-}
+            &::after,
+            &::before {
+                background-color: #fff;
+                content: "";
+                display: block;
+                left: 50%;
+                position: absolute;
+                top: 50%;
+                transform: translateX(-50%) translateY(-50%) rotate(45deg);
+                transform-origin: center center;
+            }
 
-.message__header-button::after,
-.message__header-button::before {
-    background-color: #fff;
-    content: "";
-    display: block;
-    left: 50%;
-    position: absolute;
-    top: 50%;
-    transform: translateX(-50%) translateY(-50%) rotate(45deg);
-    transform-origin: center center;
-}
+            &::before {
+                height: 2px;
+                width: 50%;
+            }
 
-.message__header-button::before {
-    height: 2px;
-    width: 50%;
-}
+            &::after {
+                height: 50%;
+                width: 2px;
+            }
+        }
+    }
 
-.message__header-button::after {
-    height: 50%;
-    width: 2px;
-}
+    &__body {
+        border-radius: 0 0 4px 4px;
+        color: #4a4a4a;
+        background-color: #eeeeee;
+        width: 100%;
+        height: auto;
+        display: flex;
+        justify-items: center;
+        justify-content: center;
+        flex-direction: column;
+        /* overflow: auto; */
+        padding: 10px 15px;
 
-.message__body {
-    border-radius: 0 0 4px 4px;
-    color: #4a4a4a;
-    background-color: #eeeeee;
-    width: 100%;
-    height: auto;
-    /* overflow: auto; */
-    padding: 10px 15px;
+        &-div{
+            line-height: 1.3;
+        }
+
+        &-button{
+            font-size: 14px;
+            border-color: #ac26ff;
+            border-radius: 7px;
+            outline: none;
+            border: none;
+            background-color: #b240ff;
+            color: white;
+            margin: 10px auto 0px;
+        }
+    }
+
 }
 
 header {
@@ -202,7 +221,6 @@ button {
     }
 }
 
-
 .wrong-email::before {
     content: 'Please fix your email to continue';
     position: absolute;
@@ -214,6 +232,15 @@ button {
 
 .wrong-password::before {
     content: 'Password must be at least 6 characters long';
+    position: absolute;
+    top: 62px;
+    font-size: 12px;
+    font-weight: 400;
+    color: rgb(223, 0, 0);
+}
+
+.wrong-name::before {
+    content: 'Name must be at least 3 characters long';
     position: absolute;
     top: 62px;
     font-size: 12px;

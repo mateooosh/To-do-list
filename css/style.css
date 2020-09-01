@@ -137,8 +137,6 @@ h1 {
 }
 
 h2 {
-  margin: 0;
-  margin-left: 10%;
   font-weight: 600;
   font-size: 26px;
 }
@@ -146,7 +144,6 @@ h2 {
 label {
   width: 100%;
   display: block;
-  padding-left: 10%;
   margin-top: 30px;
   margin-bottom: 4px;
   font-weight: 600;
@@ -156,9 +153,9 @@ label {
 #log-password,
 #register-email,
 #register-password,
-#register-name {
-  width: 80%;
-  margin: 0 10%;
+#register-name,
+#forgot-email {
+  width: 100%;
   height: 36px;
   text-align: left;
   font-size: 15px;
@@ -174,9 +171,7 @@ label {
 }
 
 .section__button {
-  width: 80%;
-  margin-left: 10%;
-  margin-right: 10%;
+  width: 100%;
   margin-top: 40px;
 }
 
@@ -186,10 +181,24 @@ label {
   text-align: center;
 }
 
-.section__footer-span {
+.section__footer-a {
+  display: block;
+  -webkit-margin-before: 1em;
+          margin-block-start: 1em;
+  -webkit-margin-after: 1em;
+          margin-block-end: 1em;
+  text-decoration: none;
+}
+
+.section__footer-a, .section__footer-span {
   font-weight: 700;
   cursor: pointer;
   color: #ac26ff;
+}
+
+.section__footer-a:hover, .section__footer-span:hover {
+  color: #8500d8;
+  text-decoration: underline;
 }
 
 main {
@@ -361,30 +370,11 @@ i:hover {
     margin: 0;
     padding-top: 20px;
   }
-  h2 {
-    margin: 0;
-  }
-  label {
-    padding-left: 0;
-  }
-  #log-email,
-  #log-password,
-  #register-email,
-  #register-password,
-  #register-name {
-    width: 100%;
-    margin: 0;
-  }
   .message {
     margin: 10px 20px;
   }
   .section {
     margin: 30px 20px;
-  }
-  .section__button {
-    margin-left: 0;
-    margin-right: 0;
-    width: 100%;
   }
   .item {
     margin: 15px 20px 0;

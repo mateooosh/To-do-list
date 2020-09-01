@@ -2,7 +2,7 @@
 <html lang="en">
  	<head>
     	<meta charset="utf-8" />
-    	<title>Vue.js</title>
+    	<title>Todo List</title>
     	<link rel="stylesheet" href="css/style.css" type="text/css"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- FONT -->
@@ -14,11 +14,7 @@
 
 	<body>
 
-		
 		<main>
-			
-			
-
 			<div id="app">
 				<header>
 					<h1>
@@ -52,6 +48,7 @@
 					<!-- <button class="section__button" type="submit" @click="logInAndGetData()">Log In</button> -->
 					<button class="section__button" type="submit" @click="validateLoginData()">Log In</button>
 					<div class="section__footer">
+						<a href="change-password.html" class="section__footer-a">Forgot your password?</a>
 						<p>You don't have an account? <span class="section__footer-span" @click="setRegisterTrue()" >Sign Up</span></p>
 					</div>
 				</section>
@@ -117,7 +114,7 @@
 
 	    <!-- TODO: Add SDKs for Firebase products that you want to use
 	     https://firebase.google.com/docs/web/setup#available-libraries -->
-	    <script src="https://www.gstatic.com/firebasejs/7.18.0/firebase-analytics.js"></script>
+	    <!-- <script src="https://www.gstatic.com/firebasejs/7.18.0/firebase-analytics.js"></script> -->
 
 		<script src="js/script.js"></script>
 	</body>

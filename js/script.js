@@ -58,6 +58,7 @@ new Vue({
 			register: false,
 			name: '',
 			isVisible: false,
+			isVisibleReset: true,
 			isVisibleVerificationButton: false,
 			messageHeader: '',
 			messageBody: '',
@@ -70,18 +71,21 @@ new Vue({
 			this.isVisibleVerificationButton = true;
 		},
 
-		// function which adds element to list
+		setFalseIsVisibleReset: function () {
+			this.isVisibleReset = false;
+			this.isVisibleVerificationButton = true;
+		},
+
+		// add element to list
 		add: function () {
-			if (this.input==''){
-				//add elements to array
-				// this.tab.push({content: this.input, isCompleted: false});	
+			if (this.input==''){	
 				return;
 			}
 
 			let user = firebase.auth().currentUser;
 			let obj = {};
 			if (this.tab.length === 0) {
-				//tworzenie obiektu po czym wstawienie go do tablicy
+				// create an object and push it into array
 				obj['content'] = this.input;
 				obj['isCompleted'] = false;
 				this.tab.push(obj);
@@ -89,29 +93,30 @@ new Vue({
 			} 
 			
 			else {
-				//pobierz tablice z bazy 
+				// get data from database
 				firebase.database().ref('list/' + user.uid).on('value', snapshot => {
 					this.tab = snapshot.val().array;
 				})
 
-				//tworzenie obiektu po czym wstawienie go do tablicy
+				// create an object and push it into array
 				obj['content'] = this.input;
 				obj['isCompleted'] = false;
 				this.tab.push(obj);
 			}
 
 			
+			// update database
 			firebase.database().ref('list/' + user.uid).set({
 				array: this.tab,
 				length: this.tab.length,
 				name: this.name,
 			});
 
-			//clear input
+			// clear input
 			this.input = '';
 		},
 
-		//function which deletes element from list
+		// delete element from list
 		deleteElement: function(value) {
 			for(let i in this.tab){
 				// delete element which is equal value
@@ -120,7 +125,7 @@ new Vue({
 			}
 
 			let user = firebase.auth().currentUser;
-			//update database
+			// update database
 			firebase.database().ref('list/' + user.uid).set({
 				array: this.tab,
 				length: this.tab.length,
@@ -128,7 +133,7 @@ new Vue({
 			});
 		},
 
-		//function which edits element
+		// edit element
 		editElement: function(value) {
 			for(let i in this.tab){
 				if (this.tab[i] === value){
@@ -146,7 +151,7 @@ new Vue({
 			});			 
 		},
 
-		//function which toggles checkbox
+		// toggle checkbox
 		toggleCheckbox: function(value){
 			for (let i in this.tab) {
 				if (this.tab[i] === value) {
@@ -155,7 +160,7 @@ new Vue({
 			}
 
 			let user = firebase.auth().currentUser;
-			//działa
+			// update database
 			firebase.database().ref('list/' + user.uid).set({
 				array: this.tab,
 				length: this.tab.length,
@@ -163,22 +168,22 @@ new Vue({
 			});
 		},
 
-		//function which sets register to true
+		//set register to true
 		setRegisterTrue: function () {
 			this.register = true;
 		},
 
-		//function which sets register to false
+		//set register to false
 		setRegisterFalse: function () {
 			this.register = false;
 		},
 
-		//  log in and get data from database
+		// log in and get data from database
 		logInAndGetData: function () {
 			let email = document.getElementById('log-email').value;
 			let password = document.getElementById('log-password').value;
 
-			//logowanie
+			//logging
 			firebase.auth().signInWithEmailAndPassword(email, password)
 				.then(() => {
 					let user = firebase.auth().currentUser;
@@ -192,10 +197,9 @@ new Vue({
 						l = snapshot.val().length;
 					})
 
-					//odczytaj dane z bazy
+					//get data from database
 					firebase.database().ref('list/' + user.uid).on('value', (snapshot) => {
 						let array = snapshot.val().array;
-						// this.name = snapshot.val().name;
 
 						if (l === 0) {
 							array = [];
@@ -212,6 +216,7 @@ new Vue({
 						//verified
 					}
 					else {
+						//not verified
 						this.messageHeader = "Error";
 						this.messageBody = "Your email is not verified, check your spam folder or get the verification link once again.";
 						this.isVisibleVerificationButton = true;
@@ -221,9 +226,7 @@ new Vue({
 				})
 
 				.catch( error => {
-					// Handle Errors here.
-					// let errorCode = error.code;
-					// let errorMessage = error.message;
+					// handle errors here
 					document.getElementById('log-email').value = '';
 					document.getElementById('log-password').value = '';
 
@@ -236,16 +239,16 @@ new Vue({
 				});
 		},
 
-		//function wihich creates an user account
+		// create an user account
 		createAccount: function () {
 			this.name = document.getElementById('register-name').value;
 			let email = document.getElementById('register-email').value;
 			let password = document.getElementById('register-password').value;
 
-			//tworzenie konta
+			//create account
 			firebase.auth().createUserWithEmailAndPassword(email, password)
 				.then( user => {
-					//dodaj do bazy użytkownika
+					//add user's data to database
 					firebase.database().ref('list/' + user.user.uid).set({
 						name: this.name,
 						array: [],
@@ -279,7 +282,7 @@ new Vue({
 				});
 		},
 
-		//function which sends verification email
+		// send verification email
 		sendEmailVerification: function(){
 			let user = firebase.auth().currentUser;
 			user.sendEmailVerification().then(function () {
@@ -289,7 +292,33 @@ new Vue({
 			});
 		},
 
-		//function which validates login data
+		//change password
+		changePassword: function () {
+			let email = document.getElementById('forgot-email').value;
+			this.isVisibleVerificationButton = false;
+
+			if (this.validateEmail(email)) {
+
+				// send email
+				firebase.auth().sendPasswordResetEmail(email).then(() => {
+					this.messageHeader = "Message";
+					this.messageBody = `Email with an instruction to reset your password was sent to ${email}.`;
+					this.isVisible = true;
+
+				}).catch(error => {
+					// handle errors
+					this.messageHeader = "Error";
+					this.messageBody = error.message;
+					this.isVisible = true;
+					document.getElementById('forgot-email').value = '';
+				});
+
+			} else {
+				// validation failed                
+			}
+		},
+
+		// validate login data
 		validateLoginData: function(){
 			if (this.validateEmail(document.getElementById('log-email').value) && this.validatePassword(document.getElementById('log-password').value)){
 				// alert("Validate successfully!");
@@ -301,7 +330,7 @@ new Vue({
 			}
 		},
 
-		//function which validates register data
+		// validate register data
 		validateRegisterData: function () {
 			if (this.validateEmail(document.getElementById('register-email').value) && 
 				this.validatePassword(document.getElementById('register-password').value)&& 
@@ -316,13 +345,13 @@ new Vue({
 			}
 		},
 
-		//function which validates email
+		// validate email
 		validateEmail: function(email) {
 			let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 			return re.test(email);
 		},
 
-		//function which validates email
+		// validate email
 		validateEmailById: function (id) {
 			let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -334,7 +363,7 @@ new Vue({
 				document.getElementById(id + '-label').setAttribute('class', 'wrong-email');
 		},
 
-		//function which validates password (min 6 characters)
+		// validate password (min 6 characters)
 		validatePassword: function (password) {
 			if(password.length > 5)
 				return true;
@@ -348,7 +377,7 @@ new Vue({
 				document.getElementById(id + '-label').setAttribute('class', 'wrong-password');
 		}, 
 
-		//function which validates name (min 3 characters)
+		// validate name (min 3 characters)
 		validateName: function (name) {
 			if (name.length > 2)
 				return true;
